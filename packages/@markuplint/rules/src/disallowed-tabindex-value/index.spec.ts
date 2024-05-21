@@ -15,10 +15,10 @@ describe('The rule prohibits specifying a natural number in the tabindex attribu
 
 		expect(violations).toStrictEqual([
 			{
-				severity: 'warn',
+				severity: 'warning',
 				line: 1,
-				col: 16,
-				raw: '1',
+				col: 6,
+				raw: 'tabindex',
 				/** @todo Consider the wording of the warning statement. */
 				message: 'It is issue',
 			},
