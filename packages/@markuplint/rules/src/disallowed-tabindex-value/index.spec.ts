@@ -25,6 +25,9 @@ describe('The rule prohibits specifying a natural number in the tabindex attribu
 		]);
 	});
 
+	/**
+	 * @see https://markuplint.dev/docs/rules/invalid-attr
+	 */
 	test('Do not display errors for invalid attribute values.', async () => {
 		const { violations: specifiedNaN } = await mlRuleTest(rule, '<div tabindex="NaN"></div>');
 		const { violations: specifiedBoolean } = await mlRuleTest(rule, '<div tabindex ></div>');

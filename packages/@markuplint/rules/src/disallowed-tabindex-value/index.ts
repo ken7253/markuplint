@@ -20,6 +20,7 @@ export default createRule<boolean, null>({
 					line: attr.nameNode?.startLine,
 					col: attr.nameNode?.startCol,
 					raw: attr.nameNode?.raw,
+					/** @todo Consider the wording of the warning statement. */
 					message: t('It is {0}', 'issue'),
 				});
 			}
