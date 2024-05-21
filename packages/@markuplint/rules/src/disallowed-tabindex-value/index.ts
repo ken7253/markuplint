@@ -6,21 +6,15 @@ export default createRule<boolean, null>({
 	meta: meta,
 	defaultValue: true,
 	defaultOptions: null,
-	async verify({ document, report, t }) {
-		// Element
-		await document.walkOn('Element', el => {
-			const raw = el.raw.trim();
-			if (/./.test(raw)) {
-				report({
-					scope: el,
-					message: t('It is {0}', 'issue'),
-				});
-			}
-		});
+	defaultSeverity: 'warning',
 
+	async verify({ document, report, t }) {
 		// Attribute
 		await document.walkOn('Attr', attr => {
-			if (/./.test(attr.name)) {
+			if (attr.name !== 'tabindex') return;
+			const asNumberTabindex = Number.parseInt(attr.value, 10);
+
+			if (asNumberTabindex >= 1) {
 				report({
 					scope: attr,
 					line: attr.nameNode?.startLine,
