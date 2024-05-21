@@ -30,8 +30,11 @@ describe('The rule prohibits specifying a natural number in the tabindex attribu
 	 */
 	test('Do not display errors for invalid attribute values.', async () => {
 		const { violations: specifiedNaN } = await mlRuleTest(rule, '<div tabindex="NaN"></div>');
+		const { violations: specifiedInfinity } = await mlRuleTest(rule, '<div tabindex="Infinity"></div>');
 		const { violations: specifiedBoolean } = await mlRuleTest(rule, '<div tabindex ></div>');
 
-		expect([...specifiedNaN, ...specifiedBoolean]).toStrictEqual([]);
+		const mergeViolations = [...specifiedNaN, ...specifiedInfinity, ...specifiedBoolean];
+
+		expect(mergeViolations).toStrictEqual([]);
 	});
 });

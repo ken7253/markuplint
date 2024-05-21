@@ -14,7 +14,7 @@ export default createRule<boolean, null>({
 			if (attr.name !== 'tabindex') return;
 			const asNumberTabindex = Number.parseInt(attr.value, 10);
 
-			if (asNumberTabindex >= 1) {
+			if (Number.isFinite(asNumberTabindex) && asNumberTabindex >= 1) {
 				report({
 					scope: attr,
 					line: attr.nameNode?.startLine,
