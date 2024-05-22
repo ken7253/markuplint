@@ -9,6 +9,19 @@ export default createRule<boolean, null>({
 	defaultSeverity: 'warning',
 
 	async verify({ document, report, t }) {
+		// Element
+		await document.walkOn('Element', el => {
+			// NOTE: Confirmation by Role may be preferable to confirmation by TagName.
+			if (el.tagName === 'DIALOG') {
+				if (typeof el.getAttribute('tabindex') !== 'string') return;
+
+				report({
+					scope: el,
+					message: t('It is issue'),
+				});
+			}
+		});
+
 		// Attribute
 		await document.walkOn('Attr', attr => {
 			if (attr.name !== 'tabindex') return;

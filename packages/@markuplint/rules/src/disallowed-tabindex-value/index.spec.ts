@@ -7,7 +7,30 @@ describe('The rule prohibits specifying a natural number in the tabindex attribu
 	test.each(['-1', '0'])('If %s is specified, no warning occurs.', async value => {
 		const { violations } = await mlRuleTest(rule, `<div tabindex="${value}"></div>`);
 
-		expect(violations).toStrictEqual([]);
+		expect(violations.length).toBe(0);
+	});
+
+	describe('The tabindex attribute cannot be specified for the Dialog element.', () => {
+		test('If the tabindex attribute is specified, an error occurs.', async () => {
+			const { violations } = await mlRuleTest(rule, '<dialog tabindex="-1"></dialog>');
+
+			expect(violations).toStrictEqual([
+				{
+					severity: 'warning',
+					col: 1,
+					line: 1,
+					raw: '<dialog tabindex="-1">',
+					/** @todo Consider the wording of the warning statement. */
+					message: 'It is issue',
+				},
+			]);
+		});
+
+		test('If the tabindex attribute is not specified, there is no error.', async () => {
+			const { violations } = await mlRuleTest(rule, '<dialog autoFocus></dialog>');
+
+			expect(violations.length).toBe(0);
+		});
 	});
 
 	test('Warn if a natural number greater than or equal to 0 is specified.', async () => {
@@ -35,6 +58,6 @@ describe('The rule prohibits specifying a natural number in the tabindex attribu
 
 		const mergeViolations = [...specifiedNaN, ...specifiedInfinity, ...specifiedBoolean];
 
-		expect(mergeViolations).toStrictEqual([]);
+		expect(mergeViolations.length).toBe(0);
 	});
 });
