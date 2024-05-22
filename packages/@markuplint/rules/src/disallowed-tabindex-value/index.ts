@@ -17,7 +17,7 @@ export default createRule<boolean, null>({
 
 				report({
 					scope: el,
-					message: t('It is issue'),
+					message: t("don't use {0}", t('{0:c} on {1}', 'tabindex', 'dialog')),
 				});
 			}
 		});
@@ -34,7 +34,11 @@ export default createRule<boolean, null>({
 					col: attr.nameNode?.startCol,
 					raw: attr.nameNode?.raw,
 					/** @todo Consider the wording of the warning statement. */
-					message: t('It is {0}', 'issue'),
+					message: [
+						t('{0} must not be {1}', 'tabindex', t('{0} greater than {1}', 'number', '0')),
+						t('. '),
+						t(t('allowed values are: {0}', '"-1", "0"')),
+					].join(''),
 				});
 			}
 		});

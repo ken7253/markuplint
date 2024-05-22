@@ -20,8 +20,7 @@ describe('The rule prohibits specifying a natural number in the tabindex attribu
 					col: 1,
 					line: 1,
 					raw: '<dialog tabindex="-1">',
-					/** @todo Consider the wording of the warning statement. */
-					message: 'It is issue',
+					message: "Don't use tabindex on dialog",
 				},
 			]);
 		});
@@ -42,8 +41,7 @@ describe('The rule prohibits specifying a natural number in the tabindex attribu
 				line: 1,
 				col: 6,
 				raw: 'tabindex',
-				/** @todo Consider the wording of the warning statement. */
-				message: 'It is issue',
+				message: 'Tabindex must not be number greater than 0. allowed values are: "-1", "0"',
 			},
 		]);
 	});
