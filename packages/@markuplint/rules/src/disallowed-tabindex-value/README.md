@@ -24,6 +24,7 @@ In that case, enable the [`invalid-attr` rule](https://markuplint.dev/docs/rules
 
 ```html
 <div tabindex="1">tabindex values greater than 0 are not allowed.</div>
+<dialog tabindex="-1">tabindex cannot be specified for the dialog element.</dialog>
 ```
 
 ✅ Examples of **correct** code for this rule

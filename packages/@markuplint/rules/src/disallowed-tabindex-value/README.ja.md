@@ -25,6 +25,7 @@ description: シーケンシャルフォーカスを使用するユーザーに�
 
 ```html
 <div tabindex="1">0以上のtabindex値は許可されません</div>
+<dialog tabindex="-1">dialog要素にはtabindexを指定できません</dialog>
 ```
 
 ✅ 正しいコード例
